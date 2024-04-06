@@ -20,6 +20,7 @@ namespace UseItemsFromAnywhere
             EquipmentSlot.TacticalVest,
             EquipmentSlot.Backpack,
             EquipmentSlot.SecuredContainer,
+            EquipmentSlot.ArmBand
         };
 
         internal void Awake()
