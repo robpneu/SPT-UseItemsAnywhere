@@ -7,10 +7,10 @@ using static UseItemsFromAnywhere.UseItemsFromAnywhere;
 
 namespace UseItemsFromAnywhere
 {
-    [BepInPlugin("com.dirtbikercj.useFromAnywhere", "Use items anywhere", "1.1.0")]
+    [BepInPlugin("com.dirtbikercj.useFromAnywhere", "Use items anywhere", "1.1.1")]
     public class Plugin : BaseUnityPlugin
     {
-        public const int TarkovVersion = 29197;
+        public const int TarkovVersion = 30626;
 
         public static Plugin instance;
 

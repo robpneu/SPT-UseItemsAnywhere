@@ -1,8 +1,6 @@
-﻿using Aki.Reflection.Patching;
-using Comfort.Common;
-using EFT.InventoryLogic;
-using EFT.UI;
+﻿using EFT.InventoryLogic;
 using HarmonyLib;
+using SPT.Reflection.Patching;
 using System.Linq;
 using System.Reflection;
 
@@ -30,30 +28,11 @@ namespace UseItemsFromAnywhere
                     (Inventory)AccessTools.Property(typeof(InventoryControllerClass), "Inventory").GetValue(__instance);
 
                 if (item is Weapon || item is GrenadeClass || item is MedsClass
-                    || item is FoodClass || item is GClass2732 || item is GClass2733
+                    || item is FoodClass || item is GClass2747 || item is GClass2749
                     || item is RecodableItemClass || item.GetItemComponent<KnifeComponent>() != null
                     || items.Contains(item.TemplateId))
                 {
-                    if (inventory.Equipment.Contains(item))
-                    {
-                        __result = true;
-                        return;
-                    }
-                    else
-                    {
-#if DEBUG
-                        ConsoleScreen.Log($"{item.TemplateId} is not in the players inventory");
-#endif
-                        __result = false;
-                        return;
-                    }
-                }
-                else
-                {
-#if DEBUG
-                    ConsoleScreen.Log($"Item {item.TemplateId} not of bindable type");
-#endif
-                    return;
+                    __result = inventory.Equipment.Contains(item);
                 }
             }
         }
@@ -63,54 +42,13 @@ namespace UseItemsFromAnywhere
             protected override MethodBase GetTargetMethod() =>
                 typeof(InventoryControllerClass).GetMethod("IsAtReachablePlace", BindingFlags.Public | BindingFlags.Instance);
 
-
-            [PatchPostfix]
-            private static void Postfix(InventoryControllerClass __instance, ref bool __result, ref Item item)
-            {
-                Inventory inventory =
-                    (Inventory)AccessTools.Property(typeof(InventoryControllerClass), "Inventory").GetValue(__instance); 
-
-                if (inventory.Equipment.Contains(item))
-                {
-                    __result = true;
-                    return;
-                }
-                else
-                {
-#if DEBUG
-                        ConsoleScreen.Log($"{item.TemplateId} is not in the players inventory");
-#endif
-                    __result = false;
-                    return;
-                }
-            }
-        }
-
-        public class UnbindItemPatch : ModulePatch
-        {
-            protected override MethodBase GetTargetMethod() =>
-                typeof(InventoryControllerClass).GetMethod("UnbindItem", BindingFlags.Public | BindingFlags.Instance);
-
-
             [PatchPostfix]
             private static void Postfix(InventoryControllerClass __instance, ref bool __result, ref Item item)
             {
                 Inventory inventory =
                     (Inventory)AccessTools.Property(typeof(InventoryControllerClass), "Inventory").GetValue(__instance);
 
-                if (inventory.Equipment.Contains(item))
-                {
-                    __result = true;
-                    return;
-                }
-                else
-                {
-#if DEBUG
-                    ConsoleScreen.Log($"{item.TemplateId} is not in the players inventory");
-#endif
-                    __result = false;
-                    return;
-                }
+                __result = inventory.Equipment.Contains(item);
             }
         }
     }
