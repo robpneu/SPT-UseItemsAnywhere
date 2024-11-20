@@ -7,14 +7,13 @@ using static UseItemsFromAnywhere.UseItemsFromAnywhere;
 
 namespace UseItemsFromAnywhere
 {
-    [BepInPlugin("com.dirtbikercj.useFromAnywhere", "Use items anywhere", "1.1.1")]
+    [BepInPlugin("com.dirtbikercj.useFromAnywhere", "Use items anywhere", "1.1.2")]
+    [BepInDependency("com.SPT.custom", "3.10.0")]
     public class Plugin : BaseUnityPlugin
     {
-        public const int TarkovVersion = 30626;
-
-        public static Plugin instance;
-
-        public static EquipmentSlot[] extendedFastAccessSlots =
+        public const int TarkovVersion = 33420;
+        
+        private static EquipmentSlot[] _extendedFastAccessSlots =
         {
             EquipmentSlot.Pockets,
             EquipmentSlot.TacticalVest,
@@ -29,12 +28,11 @@ namespace UseItemsFromAnywhere
             {
                 throw new Exception("Invalid EFT Version");
             }
-
-            instance = this;
+            
             DontDestroyOnLoad(this);
 
             var fastAccessSlots = AccessTools.Field(typeof(Inventory), "FastAccessSlots");
-            fastAccessSlots.SetValue(fastAccessSlots, extendedFastAccessSlots);
+            fastAccessSlots.SetValue(fastAccessSlots, _extendedFastAccessSlots);
 
             new IsAtBindablePlace().Enable();
             new IsAtReachablePlace().Enable();
