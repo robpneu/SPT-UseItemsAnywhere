@@ -7,7 +7,7 @@ using static UseItemsFromAnywhere.UseItemsFromAnywhere;
 
 namespace UseItemsFromAnywhere
 {
-    [BepInPlugin("com.dirtbikercj.useFromAnywhere", "Use items anywhere", "1.1.3")]
+    [BepInPlugin("com.dirtbikercj.useFromAnywhere", "Use Items Anywhere", "1.2.0")]
     [BepInDependency("com.SPT.custom", "3.11.0")]
     public class Plugin : BaseUnityPlugin
     {
